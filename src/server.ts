@@ -5,9 +5,15 @@ import departmentsRoutes from './routes/departments.routes'
 import employeesRoutes from './routes/employees.routes'
 import productsRoutes from './routes/products.routes'
 
+
+interface Route {
+  path: string;
+  routes: express.Router
+}
+
 class App {
   app: express.Application
-  routes: [] = []
+  routes: Route[] = []
   db: mongoose.Connection
   server: any
 
@@ -15,7 +21,7 @@ class App {
     this.app = express()
   }
 
-  connectToDb(url) {
+  connectToDb(url: string) {
     mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     this.db = mongoose.connection
     this.db.once('open', () => {
@@ -24,7 +30,7 @@ class App {
     this.db.on('error', err => console.log('Error ' + err))
   }
 
-  addRoutes(path, routes) {
+  addRoutes(path: string, routes: express.Router) {
     this.routes.push({ path, routes })
   }
 
@@ -34,7 +40,7 @@ class App {
     }
   }
 
-  run(port) {
+  run(port: string) {
 
     this.app.use(cors())
     this.app.use(express.json())
