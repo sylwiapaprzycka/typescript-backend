@@ -37,8 +37,8 @@ export const getId = async (req: Request, res: Response) => {
 export const post = async (req: Request, res: Response) => {
   try {
     const { name, client } = req.body
-    const newProduct = new Product({ name, client })
-    await newProduct.save() 
+    const ProductData = { name, client }
+    const newProduct = await Product.create(ProductData)
     res.json({ message: 'OK' })
   } 
   catch(err) {

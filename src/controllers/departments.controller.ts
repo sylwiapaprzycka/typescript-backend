@@ -37,8 +37,8 @@ export const getId = async (req: Request, res: Response) => {
 export const post = async (req: Request, res: Response) => {
   try {
     const { name } = req.body
-    const newDepartment = new Department({ name })
-    await newDepartment.save()
+    const DepartmentData = { name };
+    const newDepartment = await Department.create(DepartmentData)
     res.json({ message: 'OK' })
 
   } catch(err) {

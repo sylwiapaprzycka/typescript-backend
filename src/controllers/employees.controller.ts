@@ -37,8 +37,8 @@ export const getId = async (req: Request, res: Response) => {
 export const post = async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, department } = req.body
-    const newEmployee = new Employee({ firstName, lastName, department })
-    await newEmployee.save()
+    const EmployeeData = { firstName, lastName, department }
+    const newEmployee = await Employee.create(EmployeeData)
     res.json({ message: 'OK' })
   } 
   catch(err) {
